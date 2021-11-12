@@ -1,7 +1,7 @@
 import './assets/styles/main.scss';
-import 'primevue/resources/themes/saga-blue/theme.css';
 import 'primevue/resources/primevue.min.css';
 import 'primeicons/primeicons.css';
+import 'primeflex/primeflex.css';
 import { createApp } from 'vue';
 import PrimeVue from 'primevue/config';
 import VueGoogleMaps from '@fawmi/vue-google-maps';
