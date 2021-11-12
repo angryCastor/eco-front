@@ -1,6 +1,5 @@
 <template>
   <div class="map relative h-full w-full">
-    {{newStyles}}
     <GMapMap
       :center="coords"
       :zoom="zoom"
