@@ -1,0 +1,22 @@
+:root {
+  --local-success: #4CAF50;
+  --local-warn: #757575;
+  --local-bad: #F44336;
+  --surface-b:#f8f9fa;
+}
+
+
+body {
+  background-color: var(--surface-a);
+  font-family: var(--font-family);
+  font-weight: 400;
+  color: var(--text-color);
+}
+
+.p-datatable-wrapper {
+  background: var(--surface-a);
+}
+
+.p-datatable .p-sortable-column:not(.p-highlight):hover {
+  background: var(--surface-hover);
+}
