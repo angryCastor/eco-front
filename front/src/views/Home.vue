@@ -1,6 +1,6 @@
 <template>
   <div class="map-view h-full">
-    <Map />
+    <Map/>
   </div>
 </template>
 
