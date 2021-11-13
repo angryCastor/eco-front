@@ -6,26 +6,42 @@
       :options="mapOptions"
       @mousemove="onMapMouseMoveHandle"
     >
+      <GMapMarker
+        :key="item.id"
+        v-for="(item) in factoriesFiltered"
+        :icon="getMarkerIcon(item)"
+        :position="{
+            lat: item.lat, lng: item.lng
+          }"
+      />
       <div
         class="gmap-select"
         :style="selectedRectangleStyle"
       ></div>
+      <div class="map__filter absolute" style="top: 8px; left: 8px">
+        <MapFilter/>
+      </div>
     </GMapMap>
   </div>
 </template>
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import useMapSelectArea from '@/services/useMapSelectArea';
 import useMapFactoryPopup from '@/services/useMapFactoryPopup';
 import useTheme from '@/services/useTheme';
 import mapDark from '@/utils/mapDark';
+import getIconUrl from '@/utils/getIconUrl';
+import MapFilter from '@/components/MapFilter.vue';
+import useMapObjects from '@/services/useMapObjects';
 
 export default {
+  components: { MapFilter },
   setup() {
     const mapWrapper = ref(null);
     const { isDark } = useTheme();
     const { open, isOpen } = useMapFactoryPopup();
+    const { load, factoriesFiltered } = useMapObjects();
 
     const {
       onMapMouseMoveHandle,
@@ -40,9 +56,24 @@ export default {
     const zoom = 11;
 
     const mapOptions = computed(() => ({
+      mapTypeId: 'roadmap',
       draggable: !isMouseDown.value,
-      styles: isDark.value ? mapDark() : [],
+      styles: isDark.value ? mapDark() : [{
+        featureType: 'poi',
+        elementType: 'labels',
+        stylers: [
+          { visibility: 'off' },
+        ],
+      }],
     }));
+
+    const getMarkerIcon = (item) => ({
+      url: getIconUrl(item.type, item),
+      scaledSize: { width: 30, height: 30 },
+      labelOrigin: { x: -15, y: -15 },
+    });
+
+    onMounted(() => load());
 
     return {
       mapWrapper,
@@ -52,6 +83,8 @@ export default {
       onMapMouseMoveHandle,
       isMouseDown,
       selectedRectangleStyle,
+      getMarkerIcon,
+      factoriesFiltered,
     };
   },
 };
