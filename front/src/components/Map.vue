@@ -4,7 +4,7 @@
       :center="coords"
       :zoom="zoom"
       :options="mapOptions"
-        @mousemove="onMapMouseMoveHandle"
+      @mousemove="onMapMouseMoveHandle"
     >
       <div
         class="gmap-select"
@@ -17,18 +17,18 @@
 <script>
 import { computed, ref } from 'vue';
 import useMapSelectArea from '@/services/useMapSelectArea';
+import useMapFactoryPopup from '@/services/useMapFactoryPopup';
 
 export default {
   setup() {
     const mapWrapper = ref(null);
-
-    const onSelected = (area) => console.log(area);
+    const { open } = useMapFactoryPopup();
 
     const {
       onMapMouseMoveHandle,
       selectedRectangleStyle,
       isMouseDown,
-    } = useMapSelectArea(mapWrapper, onSelected);
+    } = useMapSelectArea(mapWrapper, open);
 
     const coords = {
       lat: 55.159897,

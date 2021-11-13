@@ -8,6 +8,7 @@ import ToastService from 'primevue/toastservice';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
+import Dialog from 'primevue/dialog';
 
 import VueGoogleMaps from '@fawmi/vue-google-maps';
 import App from './App.vue';
@@ -28,5 +29,6 @@ createApp(App)
   })
   .component('Button', Button)
   .component('InputText', InputText)
+  .component('Dialog', Dialog)
   .component('Password', Password)
   .mount('#app');
