@@ -18,10 +18,13 @@
 import { computed, ref } from 'vue';
 import useMapSelectArea from '@/services/useMapSelectArea';
 import useMapFactoryPopup from '@/services/useMapFactoryPopup';
+import useTheme from '@/services/useTheme';
+import mapDark from '@/utils/mapDark';
 
 export default {
   setup() {
     const mapWrapper = ref(null);
+    const { isDark } = useTheme();
     const { open } = useMapFactoryPopup();
 
     const {
@@ -38,6 +41,7 @@ export default {
 
     const mapOptions = computed(() => ({
       draggable: !isMouseDown.value,
+      styles: isDark.value ? mapDark() : [],
     }));
 
     return {

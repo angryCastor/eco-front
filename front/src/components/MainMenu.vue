@@ -43,7 +43,7 @@ export default {
       },
       {
         icon: 'pi-table',
-        label: 'Предприятия',
+        label: 'Компании',
         selected: route.name === 'factories',
         command: () => router.push({
           name: 'factories',

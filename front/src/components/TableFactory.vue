@@ -37,7 +37,7 @@
     :loading="isLoading">
     <template #header>
       <div class="flex align-items-center">
-        <h2 class="text-xl flex-grow-1"></h2>
+        <h2 v-if="header" class="text-xl flex-grow-1">{{ header }}</h2>
         <div class="flex align-items-center">
           <MultiSelect
             v-model="visibilityColumnKeys"
@@ -65,10 +65,10 @@
       </div>
     </template>
     <template #empty>
-      Предприятия не найдены.
+      Компании не найдены.
     </template>
     <template #loading>
-      Загрузка предприятий. Пожалуйста подождите.
+      Загрузка компаний. Пожалуйста подождите.
     </template>
     <Column
       v-for="col in selectedColumn"
@@ -166,6 +166,10 @@ import getNameByReasonSearching from '@/utils/getNameByReasonSearching';
 
 export default {
   props: {
+    header: {
+      type: String,
+      default: '',
+    },
     isLoading: {
       type: Boolean,
       default: false,
