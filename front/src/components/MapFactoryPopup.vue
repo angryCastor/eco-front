@@ -34,7 +34,7 @@ export default {
       try {
         factories.value = isMock.value
           ? await delay(list(300))
-          : (await get('factories', {
+          : (await get('factories-coords', {
             params: {
               latStart: payload.value.start.lat,
               lngStart: payload.value.start.lng,
