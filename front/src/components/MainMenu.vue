@@ -25,10 +25,40 @@
 
 <script>
 import { computed } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 export default {
   setup() {
-    const items = computed(() => []);
+    const route = useRoute();
+    const router = useRouter();
+
+    const items = computed(() => [
+      {
+        icon: 'pi-map',
+        label: 'Карта',
+        selected: route.name === 'map',
+        command: () => router.push({
+          name: 'map',
+        }),
+      },
+      {
+        icon: 'pi-table',
+        label: 'Предприятия',
+        selected: route.name === 'factories',
+        command: () => router.push({
+          name: 'factories',
+        }),
+      },
+      {
+        icon: 'pi-external-link',
+        label: 'RestAPI',
+        selected: false,
+        command: () => window.open(
+          'https://app.swaggerhub.com/apis-docs/angryCastor/eco_imperium/1.0.0',
+          '_blank',
+        ).focus(),
+      },
+    ]);
 
     return {
       items,
