@@ -7,6 +7,7 @@
     :rows="10"
     :rowsPerPageOptions="[10,20,50]"
     v-model:filters="filters"
+    v-model:expandedRows="expandedRows"
     filterDisplay="menu"
     :globalFilterFields="[
       'id',
@@ -16,6 +17,7 @@
       'inn',
       'okpo',
       'okved',
+      'okvedDisplay',
       'phones',
       'emails',
       ]"
@@ -65,6 +67,7 @@
     <template #loading>
       Загрузка компаний. Пожалуйста подождите.
     </template>
+    <Column :expander="true" headerStyle="width: 3rem" />
     <Column
       v-for="col in selectedColumn"
       :key="col.field"
@@ -148,6 +151,9 @@
           class="p-button-success"></Button>
       </template>
     </Column>
+    <template #expansion="slotProps">
+      <TableNote :id="slotProps.data.id"/>
+    </template>
   </DataTable>
 </template>
 
@@ -158,8 +164,10 @@ import getFactoryColumns from '@/utils/getFactoryColumns';
 import getFactoryFilters from '@/utils/getFactoryFilters';
 import formatDate from '@/utils/formatDate';
 import getNameByReasonSearching from '@/utils/getNameByReasonSearching';
+import TableNote from '@/components/TableNote.vue';
 
 export default {
+  components: { TableNote },
   props: {
     header: {
       type: String,
@@ -178,6 +186,7 @@ export default {
     const dt = ref(null);
     const filters = ref({});
     const reasons = ['okved', 'emissions', 'waste', 'metal'];
+    const expandedRows = ref([]);
 
     const initColumns = [
       'address',
@@ -188,6 +197,7 @@ export default {
       'phones',
       'emails',
       'reasonSearching',
+      'okvedDisplay',
     ];
 
     const visibilityColumnKeys = useStorage('visibility-column-keys', initColumns);
@@ -228,12 +238,18 @@ export default {
       exportCSV,
       getNameByReasonSearching,
       reasons,
+      expandedRows,
     };
   },
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.p-datatable-row-expansion > td {
+  box-shadow: 0px 0px 10px 0px rgba(34, 60, 80, 0.17) inset;
+  padding: 0!important;
+}
+
 ::v-deep(.p-column-header-content) {
   width: 100%;
 

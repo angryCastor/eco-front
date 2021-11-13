@@ -80,4 +80,12 @@ export default () => [
     permanentVisibility: false,
     dataType: 'text',
   },
+  {
+    field: 'okvedDisplay',
+    header: 'ОКВЭД Значение',
+    type: 'common',
+    style: 'min-width: 10rem',
+    permanentVisibility: false,
+    dataType: 'text',
+  },
 ];
