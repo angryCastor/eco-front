@@ -1,9 +1,10 @@
 <template>
   <Dialog header="Компании"
           v-model:visible="isOpen"
-          :style="{width: '80vw', maxWidth: 1200}"
+          :style="{width: '80vw', maxWidth: 1200, height: '80vh', background: 'var(--surface-a)'}"
           :maximizable="true"
-          :modal="true">
+          :modal="true"
+          :draggable=true>
     <TableFactory :factories="factories" :is-loading="isLoading"/>
   </Dialog>
 </template>

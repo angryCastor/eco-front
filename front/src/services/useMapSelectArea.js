@@ -1,9 +1,9 @@
 import {
-  computed, ref, readonly,
+  computed, ref, readonly, watch,
 } from 'vue';
 import { tryOnBeforeUnmount, tryOnMounted } from '@vueuse/core';
 
-export default (mapWrapper, callback) => {
+export default (mapWrapper, isOpenPopup, callback) => {
   const isMouseDown = ref(false);
 
   const mouseCoords = ref({ lat: 0, lng: 0 });
@@ -89,15 +89,26 @@ export default (mapWrapper, callback) => {
     };
   };
 
-  tryOnMounted(() => {
+  const addEventListeners = () => {
     document.addEventListener('mousedown', mouseDownHandler);
     document.addEventListener('mouseup', mouseUpHandler);
     mapWrapper.value.addEventListener('contextmenu', (e) => e.preventDefault());
+  };
+
+  const removeEventListeners = () => {
+    document.removeEventListener('mousedown', mouseDownHandler);
+    document.removeEventListener('mouseup', mouseUpHandler);
+    mapWrapper.value.removeEventListener('contextmenu', (e) => e.preventDefault());
+  };
+
+  watch(isOpenPopup, (val) => (val ? removeEventListeners() : addEventListeners()));
+
+  tryOnMounted(() => {
+    addEventListeners();
   });
 
   tryOnBeforeUnmount(() => {
-    document.removeEventListener('mousedown', mouseDownHandler);
-    document.removeEventListener('mouseup', mouseUpHandler);
+    removeEventListeners();
   });
 
   return {

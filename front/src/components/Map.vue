@@ -25,13 +25,13 @@ export default {
   setup() {
     const mapWrapper = ref(null);
     const { isDark } = useTheme();
-    const { open } = useMapFactoryPopup();
+    const { open, isOpen } = useMapFactoryPopup();
 
     const {
       onMapMouseMoveHandle,
       selectedRectangleStyle,
       isMouseDown,
-    } = useMapSelectArea(mapWrapper, open);
+    } = useMapSelectArea(mapWrapper, isOpen, open);
 
     const coords = {
       lat: 55.159897,
