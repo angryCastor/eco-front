@@ -15,6 +15,7 @@
       'management_name',
       'inn',
       'okpo',
+      'okved',
       'phones',
       'emails',
       ]"
