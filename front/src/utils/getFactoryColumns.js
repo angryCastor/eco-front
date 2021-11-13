@@ -73,22 +73,6 @@ export default () => [
     dataType: 'text',
   },
   {
-    field: 'state_registration_date',
-    header: 'Дата регистрации',
-    type: 'date',
-    style: 'min-width: 16rem',
-    permanentVisibility: false,
-    dataType: 'date',
-  },
-  {
-    field: 'state_actuality_date',
-    header: 'Дата последней активности',
-    type: 'date',
-    style: 'min-width: 16rem',
-    permanentVisibility: false,
-    dataType: 'date',
-  },
-  {
     field: 'okpo',
     header: 'ОКПО',
     type: 'common',

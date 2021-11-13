@@ -184,11 +184,9 @@ export default {
     const filters = ref({});
     const reasons = ['okved', 'emissions', 'waste', 'metal'];
 
-    const visibilityColumnKeys = useStorage('visibility-column-keys', [
+    const initColumns = [
       'address',
       'management_name',
-      'state_actuality_date',
-      'state_registration_date',
       'inn',
       'ogrn',
       'okpo',
@@ -200,7 +198,9 @@ export default {
       'phones',
       'emails',
       'reasonSearching',
-    ]);
+    ];
+
+    const visibilityColumnKeys = useStorage('visibility-column-keys', initColumns);
 
     const columns = getFactoryColumns();
     const toggleColumns = columns.filter((e) => !e.permanentVisibility);
@@ -217,7 +217,14 @@ export default {
       dt.value.exportCSV();
     };
 
+    const clearVisibilityColumnKeys = () => {
+      const allColumnsKeys = columns.map((e) => e.field);
+      visibilityColumnKeys.value = visibilityColumnKeys.value
+        .filter((e) => allColumnsKeys.includes(e));
+    };
+
     initFilters();
+    clearVisibilityColumnKeys();
 
     return {
       dt,
