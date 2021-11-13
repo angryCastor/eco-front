@@ -6,6 +6,7 @@
       <ThemeSwitch :is-card="true"/>
     </div>
     <Toast position="bottom-right" group="br" />
+    <ConfirmDialog/>
   </div>
 </template>
 
