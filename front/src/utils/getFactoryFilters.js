@@ -68,6 +68,13 @@ export default () => ({
       matchMode: FilterMatchMode.STARTS_WITH,
     }],
   },
+  okvedDisplay: {
+    operator: FilterOperator.AND,
+    constraints: [{
+      value: null,
+      matchMode: FilterMatchMode.STARTS_WITH,
+    }],
+  },
   reasonSearching: {
     operator: FilterOperator.OR,
     constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
