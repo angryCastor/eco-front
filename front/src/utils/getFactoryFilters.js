@@ -33,13 +33,6 @@ export default () => ({
       matchMode: FilterMatchMode.EQUALS,
     }],
   },
-  ogrn: {
-    operator: FilterOperator.AND,
-    constraints: [{
-      value: null,
-      matchMode: FilterMatchMode.EQUALS,
-    }],
-  },
   phones: {
     operator: FilterOperator.AND,
     constraints: [{
@@ -62,34 +55,6 @@ export default () => ({
     }],
   },
   okpo: {
-    operator: FilterOperator.AND,
-    constraints: [{
-      value: null,
-      matchMode: FilterMatchMode.EQUALS,
-    }],
-  },
-  okato: {
-    operator: FilterOperator.AND,
-    constraints: [{
-      value: null,
-      matchMode: FilterMatchMode.EQUALS,
-    }],
-  },
-  oktmo: {
-    operator: FilterOperator.AND,
-    constraints: [{
-      value: null,
-      matchMode: FilterMatchMode.EQUALS,
-    }],
-  },
-  okogu: {
-    operator: FilterOperator.AND,
-    constraints: [{
-      value: null,
-      matchMode: FilterMatchMode.EQUALS,
-    }],
-  },
-  okfs: {
     operator: FilterOperator.AND,
     constraints: [{
       value: null,
