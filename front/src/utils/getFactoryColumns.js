@@ -65,7 +65,7 @@ export default () => [
     dataType: 'text',
   },
   {
-    field: 'management_name',
+    field: 'managementName',
     header: 'Руководитель',
     type: 'common',
     style: 'min-width: 14rem',
