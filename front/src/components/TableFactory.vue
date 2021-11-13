@@ -152,9 +152,10 @@
       </template>
     </Column>
     <template #expansion="slotProps">
-      <TableNote :id="slotProps.data.id"/>
+      <TableNote :factory-id="slotProps.data.id"/>
     </template>
   </DataTable>
+  <FormNote v-model:visible="isOpen" :modal="true"/>
 </template>
 
 <script>
@@ -165,9 +166,11 @@ import getFactoryFilters from '@/utils/getFactoryFilters';
 import formatDate from '@/utils/formatDate';
 import getNameByReasonSearching from '@/utils/getNameByReasonSearching';
 import TableNote from '@/components/TableNote.vue';
+import FormNote from '@/components/FormNote.vue';
+import useNotePopup from '@/services/useNotePopup';
 
 export default {
-  components: { TableNote },
+  components: { FormNote, TableNote },
   props: {
     header: {
       type: String,
@@ -187,6 +190,7 @@ export default {
     const filters = ref({});
     const reasons = ['okved', 'emissions', 'waste', 'metal'];
     const expandedRows = ref([]);
+    const { isOpen } = useNotePopup();
 
     const initColumns = [
       'address',
@@ -239,6 +243,7 @@ export default {
       getNameByReasonSearching,
       reasons,
       expandedRows,
+      isOpen,
     };
   },
 };

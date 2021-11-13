@@ -1,4 +1,5 @@
 import faker from 'faker';
+import delay from '@/utils/delay';
 
 export const item = () => ({
   id: faker.datatype.number(),
@@ -8,7 +9,7 @@ export const item = () => ({
   comment: faker.lorem.words(20),
 });
 
-export const list = (count) => (Array(count ?? 300).fill(0).map(() => item()));
+export const list = (count) => delay((Array(count ?? 300).fill(0).map(() => item())));
 
 export default {
   list,

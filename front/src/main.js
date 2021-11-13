@@ -26,6 +26,8 @@ import Sidebar from 'primevue/sidebar';
 import Tag from 'primevue/tag';
 import Tooltip from 'primevue/tooltip';
 import Chart from 'primevue/chart';
+import ConfirmationService from 'primevue/confirmationservice';
+import ConfirmDialog from 'primevue/confirmdialog';
 
 import VueGoogleMaps from '@fawmi/vue-google-maps';
 import ru from '@/utils/ru';
@@ -40,6 +42,7 @@ createApp(App)
   .use(router)
   .use(PrimeVue, { ripple: true, locale: ru })
   .use(ToastService)
+  .use(ConfirmationService)
   .use(VueGoogleMaps, {
     load: {
       key: googleMapKey.value,
@@ -65,6 +68,7 @@ createApp(App)
   .component('Tag', Tag)
   .component('Chart', Chart)
   .component('Dialog', Dialog)
+  .component('ConfirmDialog', ConfirmDialog)
   .directive('ripple', Ripple)
   .directive('tooltip', Tooltip)
   .mount('#app');
