@@ -47,7 +47,7 @@ export default {
         add({
           severity: 'error',
           summary: 'Ошибка',
-          detail: e.response.data,
+          detail: e.response.data.error,
           group: 'br',
           life: 3000,
         });
