@@ -186,7 +186,7 @@ export default {
 
     const initColumns = [
       'address',
-      'management_name',
+      'managementName',
       'inn',
       'ogrn',
       'okpo',

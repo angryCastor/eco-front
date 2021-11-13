@@ -54,7 +54,7 @@ export default () => ({
       matchMode: FilterMatchMode.STARTS_WITH,
     }],
   },
-  management_name: {
+  managementName: {
     operator: FilterOperator.AND,
     constraints: [{
       value: null,
