@@ -5,7 +5,8 @@
       :key="item.label"
       class="menu__item p-3 flex p-ripple cursor-pointer align-items-center"
       :class="{
-        'pointer-events-none': item.selected
+        'pointer-events-none': item.selected,
+        'menu__item_selected': item.selected
       }"
       @click="item.command"
       v-ripple
@@ -69,6 +70,11 @@ export default {
 
 <style lang="scss">
 .menu {
+  &__item_selected {
+    background: var(--primary-color);
+    color: var(--primary-color-text);
+  }
+
   &__item {
     border-bottom: 1px solid var(--surface-d);
   }
