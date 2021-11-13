@@ -42,6 +42,15 @@
       </form>
     </div>
   </div>
+  <div class="absolute right-50 flex flex-column align-items-center"
+       style="bottom: 50px; transform: translateX(50%);">
+    <div>
+      логин - demo
+    </div>
+    <div class="mt-2">
+      пароль - test
+    </div>
+  </div>
 </template>
 
 <script>

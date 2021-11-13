@@ -61,20 +61,6 @@ export default () => ({
       matchMode: FilterMatchMode.STARTS_WITH,
     }],
   },
-  state_registration_date: {
-    operator: FilterOperator.AND,
-    constraints: [{
-      value: null,
-      matchMode: FilterMatchMode.DATE_IS,
-    }],
-  },
-  state_actuality_date: {
-    operator: FilterOperator.AND,
-    constraints: [{
-      value: null,
-      matchMode: FilterMatchMode.DATE_IS,
-    }],
-  },
   okpo: {
     operator: FilterOperator.AND,
     constraints: [{
