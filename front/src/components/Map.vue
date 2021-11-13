@@ -1,107 +1,53 @@
 <template>
-  <div class="map relative h-full w-full">
+  <div ref="mapWrapper" class="map relative h-full w-full">
     <GMapMap
       :center="coords"
       :zoom="zoom"
       :options="mapOptions"
         @mousemove="onMapMouseMoveHandle"
-      ref="map"
     >
       <div
         class="gmap-select"
-        :style="newStyles"
+        :style="selectedRectangleStyle"
       ></div>
     </GMapMap>
   </div>
 </template>
 
 <script>
-// eslint-disable-next-line object-curly-newline
-import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue';
+import { computed, ref } from 'vue';
+import useMapSelectArea from '@/services/useMapSelectArea';
 
 export default {
   setup() {
-    const map = ref();
-    const isMouseDown = ref(false);
+    const mapWrapper = ref(null);
+
+    const onSelected = (area) => console.log(area);
+
+    const {
+      onMapMouseMoveHandle,
+      selectedRectangleStyle,
+      isMouseDown,
+    } = useMapSelectArea(mapWrapper, onSelected);
+
     const coords = {
       lat: 55.159897,
       lng: 61.402554,
     };
     const zoom = 11;
 
-    const mapOptions = {
-      draggable: false,
-    };
-    const gMapSelectStyle = reactive({});
-    const mouseCoords = { x: 0, y: 0 };
-    // const startMouseCoords = null;
-
-    const mousePosition = ref({ x: 0, y: 0 });
-    const startMousePosition = ref({ x: 0, y: 0 });
-
-    const newStyles = computed(() => {
-      if (!isMouseDown.value) {
-        return {};
-      }
-
-      const mX = mousePosition.value ? mousePosition.value.x : 0;
-      const mY = mousePosition.value ? mousePosition.value.y : 0;
-
-      const sX = startMousePosition.value ? startMousePosition.value.x : 0;
-      const sY = startMousePosition.value ? startMousePosition.value.y : 0;
-
-      let top = sY;
-      let left = sX;
-
-      if (mY < sY) {
-        top = mY;
-      }
-
-      if (mX < sX) {
-        left = mX;
-      }
-
-      return {
-        top: `${top}px`,
-        left: `${left}px`,
-        width: `${Math.abs(mX - sX)}px`,
-        height: `${Math.abs(mY - sY)}px`,
-      };
-    });
-
-    const onMapMouseMoveHandle = (event) => {
-      mouseCoords.value = event.ib;
-      mousePosition.value = event.pixel;
-      if (!isMouseDown.value) {
-        // mouseCoords = event.ib;
-        startMousePosition.value = event.pixel;
-      }
-    };
-
-    onMounted(() => {
-      document.onmousedown = () => {
-        isMouseDown.value = true;
-      };
-
-      document.onmouseup = () => {
-        isMouseDown.value = false;
-      };
-    });
-
-    onBeforeUnmount(() => {
-      document.onmousedown = () => {};
-      document.onmouseup = () => {};
-    });
+    const mapOptions = computed(() => ({
+      draggable: !isMouseDown.value,
+    }));
 
     return {
-      map,
+      mapWrapper,
       coords,
       zoom,
       mapOptions,
       onMapMouseMoveHandle,
       isMouseDown,
-      gMapSelectStyle,
-      newStyles,
+      selectedRectangleStyle,
     };
   },
 };
@@ -118,8 +64,19 @@ export default {
   }
 
   .gmap-select {
-    background: blue;
     position: absolute;
+    border: 3px solid var(--primary-color);
+  }
+
+  .gmap-select::after {
+    content: '';
+    background: var(--primary-color);
+    opacity: 0.3;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
   }
 }
 </style>
