@@ -51,6 +51,14 @@ export default {
         }),
       },
       {
+        icon: 'pi-chart-bar',
+        label: 'Инфографика',
+        selected: route.name === 'stats',
+        command: () => router.push({
+          name: 'stats',
+        }),
+      },
+      {
         icon: 'pi-external-link',
         label: 'RestAPI',
         selected: false,

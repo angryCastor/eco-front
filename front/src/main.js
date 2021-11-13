@@ -25,6 +25,8 @@ import Dialog from 'primevue/dialog';
 import Sidebar from 'primevue/sidebar';
 import Tag from 'primevue/tag';
 import Tooltip from 'primevue/tooltip';
+import Chart from 'primevue/chart';
+
 import VueGoogleMaps from '@fawmi/vue-google-maps';
 import ru from '@/utils/ru';
 
@@ -60,6 +62,8 @@ createApp(App)
   .component('MultiSelect', MultiSelect)
   .component('Sidebar', Sidebar)
   .component('Tag', Tag)
+  .component('Tag', Tag)
+  .component('Chart', Chart)
   .component('Dialog', Dialog)
   .directive('ripple', Ripple)
   .directive('tooltip', Tooltip)
