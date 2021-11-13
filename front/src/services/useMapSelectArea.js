@@ -63,18 +63,20 @@ export default (mapWrapper, callback) => {
   };
 
   const mouseUpHandler = () => {
-    isMouseDown.value = false;
+    if (isMouseDown.value) {
+      callback({
+        start: {
+          lat: Math.min(startMouseCoords.value.lat, mouseCoords.value.lat),
+          lng: Math.min(startMouseCoords.value.lng, mouseCoords.value.lng),
+        },
+        end: {
+          lat: Math.max(startMouseCoords.value.lat, mouseCoords.value.lat),
+          lng: Math.max(startMouseCoords.value.lng, mouseCoords.value.lng),
+        },
+      });
+    }
 
-    callback({
-      start: {
-        lat: Math.min(startMouseCoords.value.lat, mouseCoords.value.lat),
-        lng: Math.min(startMouseCoords.value.lng, mouseCoords.value.lng),
-      },
-      end: {
-        lat: Math.max(startMouseCoords.value.lat, mouseCoords.value.lat),
-        lng: Math.max(startMouseCoords.value.lng, mouseCoords.value.lng),
-      },
-    });
+    isMouseDown.value = false;
 
     startMousePosition.value = {
       x: mousePosition.value.x,
