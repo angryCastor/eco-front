@@ -21,7 +21,7 @@ import { list } from '@/mock/getFactoriesMock';
 export default {
   components: { TableFactory },
   setup() {
-    const { isOpen, close } = useMapFactoryPopup();
+    const { isOpen, close, payload } = useMapFactoryPopup();
     const { get } = useApi();
     const { isMock } = useEnv();
     const { add } = useToast();
@@ -32,7 +32,16 @@ export default {
     const load = async () => {
       isLoading.value = true;
       try {
-        factories.value = isMock.value ? await delay(list(300)) : (await get('factories')).data;
+        factories.value = isMock.value
+          ? await delay(list(300))
+          : (await get('factories', {
+            params: {
+              latStart: payload.value.start.lat,
+              lngStart: payload.value.start.lng,
+              latEnd: payload.value.end.lat,
+              lngEnd: payload.value.end.lng,
+            },
+          })).data;
       } catch (e) {
         factories.value = [];
         add({
@@ -42,6 +51,7 @@ export default {
           group: 'br',
           life: 3000,
         });
+        close();
       }
       isLoading.value = false;
     };

@@ -21,6 +21,8 @@ export default () => {
       headers: {},
     };
 
+    newConfig.headers = {};
+
     if (token) {
       newConfig.headers.Authorization = `Bearer ${token}`;
     }
