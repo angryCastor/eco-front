@@ -4,23 +4,39 @@ import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import { createApp } from 'vue';
 import PrimeVue from 'primevue/config';
-import ToastService from 'primevue/toastservice';
 import Button from 'primevue/button';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
+import InputSwitch from 'primevue/inputswitch';
+import ToastService from 'primevue/toastservice';
+import Menu from 'primevue/menu';
+import Ripple from 'primevue/ripple';
+import Card from 'primevue/card';
+import DataTable from 'primevue/datatable';
+import Column from 'primevue/column';
+import ColumnGroup from 'primevue/columngroup';
+import Calendar from 'primevue/calendar';
+import InputNumber from 'primevue/inputnumber';
+import Dropdown from 'primevue/dropdown';
+import ProgressBar from 'primevue/progressbar';
+import ScrollPanel from 'primevue/scrollpanel';
+import MultiSelect from 'primevue/multiselect';
 import Dialog from 'primevue/dialog';
-
+import Sidebar from 'primevue/sidebar';
+import Tag from 'primevue/tag';
+import Tooltip from 'primevue/tooltip';
 import VueGoogleMaps from '@fawmi/vue-google-maps';
+import ru from '@/utils/ru';
+
 import App from './App.vue';
 import router from './router';
-
 import useEnv from '@/services/useEnv';
 
 const { googleMapKey } = useEnv();
 
 createApp(App)
   .use(router)
-  .use(PrimeVue, { ripple: true })
+  .use(PrimeVue, { ripple: true, locale: ru })
   .use(ToastService)
   .use(VueGoogleMaps, {
     load: {
@@ -29,6 +45,22 @@ createApp(App)
   })
   .component('Button', Button)
   .component('InputText', InputText)
-  .component('Dialog', Dialog)
   .component('Password', Password)
+  .component('InputSwitch', InputSwitch)
+  .component('Menu', Menu)
+  .component('Card', Card)
+  .component('DataTable', DataTable)
+  .component('Column', Column)
+  .component('ColumnGroup', ColumnGroup)
+  .component('Calendar', Calendar)
+  .component('InputNumber', InputNumber)
+  .component('Dropdown', Dropdown)
+  .component('ProgressBar', ProgressBar)
+  .component('ScrollPanel', ScrollPanel)
+  .component('MultiSelect', MultiSelect)
+  .component('Sidebar', Sidebar)
+  .component('Tag', Tag)
+  .component('Dialog', Dialog)
+  .directive('ripple', Ripple)
+  .directive('tooltip', Tooltip)
   .mount('#app');
