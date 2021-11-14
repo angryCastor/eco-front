@@ -90,16 +90,16 @@ import { computed, reactive, ref, watch } from 'vue';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
 import useNotePopup from '@/services/useNotePopup';
-import { item } from '@/mock/getNoteMock';
 import useApi from '@/services/useApi';
 
 export default {
   setup() {
-    const { isOpen, isCreate, close: closePopup, factoryId, successCallback } = useNotePopup();
+    const {
+      isOpen, isCreate, close: closePopup, factoryId, noteId, successCallback } = useNotePopup();
     const header = computed(() => (isCreate.value ? 'Создать заметку' : 'Изменить заметку'));
     const isLoading = ref(false);
     const submitted = ref(false);
-    const { post } = useApi();
+    const { post, get } = useApi();
 
     const state = reactive({
       createdAt: new Date(),
@@ -165,8 +165,8 @@ export default {
       }
 
       isLoading.value = true;
-      const n = item();
-      state.createdAt = n.createdAt;
+      const n = (await get(`note/${noteId.value}`)).data[0];
+      state.createdAt = new Date(n.createAt * 1000);
       state.createdUser = n.createdUser;
       state.comment = n.comment;
       isLoading.value = false;
