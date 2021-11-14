@@ -29,6 +29,7 @@ import Chart from 'primevue/chart';
 import ConfirmationService from 'primevue/confirmationservice';
 import ConfirmDialog from 'primevue/confirmdialog';
 import Textarea from 'primevue/textarea';
+import TriStateCheckbox from 'primevue/tristatecheckbox';
 
 import VueGoogleMaps from '@fawmi/vue-google-maps';
 import ru from '@/utils/ru';
@@ -71,6 +72,7 @@ createApp(App)
   .component('Dialog', Dialog)
   .component('ConfirmDialog', ConfirmDialog)
   .component('Textarea', Textarea)
+  .component('TriStateCheckbox', TriStateCheckbox)
   .directive('ripple', Ripple)
   .directive('tooltip', Tooltip)
   .mount('#app');

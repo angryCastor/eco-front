@@ -100,6 +100,12 @@
           </div>
           <span v-else style="color: var(--text-color-secondary)">Нет данных</span>
         </template>
+        <template v-else-if="col.type === 'register'">
+          <i class="pi text-xl" :class="{
+              'true-icon pi-check': data.isRegistered,
+              'false-icon pi-times': !data.isRegistered
+            }"></i>
+        </template>
         <template v-else>
           <span v-if="data[col.field]">{{ data[col.field]}}</span>
           <span v-else style="color: var(--text-color-secondary)">Нет данных</span>
@@ -126,6 +132,9 @@
               <Tag class="p-mr-2" :value="getNameByReasonSearching(slotProps.option)"></Tag>
             </template>
           </Dropdown>
+        </template>
+        <template v-if="col.type === 'register'">
+          <TriStateCheckbox v-model="filterModel.value" />
         </template>
         <template v-else>
           <InputText
