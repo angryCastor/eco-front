@@ -138,7 +138,7 @@ export default {
           await post('note-create', {
             factory_id: factoryId.value,
             comment: state.comment,
-            date: state.createdAt.getTime(),
+            date: Math.floor(state.createdAt.getTime() / 1000),
           });
           // eslint-disable-next-line no-empty
         } catch (e) {}
