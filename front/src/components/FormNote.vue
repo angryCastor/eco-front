@@ -89,6 +89,7 @@
 import { computed, reactive, ref, watch } from 'vue';
 import { required } from '@vuelidate/validators';
 import { useVuelidate } from '@vuelidate/core';
+import { useToast } from 'primevue/usetoast';
 import useNotePopup from '@/services/useNotePopup';
 import useApi from '@/services/useApi';
 
@@ -100,6 +101,7 @@ export default {
     const isLoading = ref(false);
     const submitted = ref(false);
     const { post, get } = useApi();
+    const { add } = useToast();
 
     const state = reactive({
       createdAt: new Date(),
@@ -139,6 +141,13 @@ export default {
             factory_id: factoryId.value,
             comment: state.comment,
             date: Math.floor(state.createdAt.getTime() / 1000),
+          });
+          add({
+            severity: 'success',
+            summary: 'Успешно',
+            detail: 'Заметка добавлена',
+            group: 'br',
+            life: 3000,
           });
           // eslint-disable-next-line no-empty
         } catch (e) {}
