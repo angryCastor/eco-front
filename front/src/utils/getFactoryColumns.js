@@ -41,6 +41,14 @@ export default () => [
     dataType: 'text',
   },
   {
+    field: 'isRegistered',
+    header: 'Стоит на учете',
+    type: 'register',
+    style: 'min-width: 14rem',
+    permanentVisibility: true,
+    dataType: 'boolean',
+  },
+  {
     field: 'phones',
     header: 'Телефон',
     type: 'common',

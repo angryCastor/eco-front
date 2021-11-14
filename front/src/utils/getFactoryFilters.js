@@ -79,4 +79,5 @@ export default () => ({
     operator: FilterOperator.OR,
     constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
   },
+  isRegistered: { value: null, matchMode: FilterMatchMode.EQUALS },
 });
