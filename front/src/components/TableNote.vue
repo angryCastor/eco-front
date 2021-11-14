@@ -40,9 +40,9 @@
 /* eslint-disable no-sequences */
 import { onMounted, ref } from 'vue';
 import { useConfirm } from 'primevue/useconfirm';
-import { list } from '@/mock/getNoteMock';
 import formatDate from '@/utils/formatDate';
 import useNotePopup from '@/services/useNotePopup';
+import useApi from '@/services/useApi';
 
 export default {
   props: {
@@ -50,15 +50,28 @@ export default {
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const notes = ref([]);
     const isLoading = ref(false);
     const { open } = useNotePopup();
     const confirm = useConfirm();
+    const { get } = useApi();
 
     const load = async () => {
       isLoading.value = true;
-      notes.value = await list(5);
+      try {
+        let res = (await get(`note-factory/${props.factoryId}`)).data;
+
+        res = res.map((item) => {
+          const newItem = item;
+          newItem.createAt *= 1000;
+          return newItem;
+        });
+
+        notes.value = res;
+      } catch (e) {
+        notes.value = [];
+      }
       isLoading.value = false;
     };
 
