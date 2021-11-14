@@ -9,17 +9,22 @@
         Загрузка заметок. Пожалуйста подождите.
       </template>
       <Column field="id" header="Id" sortable></Column>
-      <Column field="createdAt" header="Дата создания" sortable>
+      <Column field="createAt" header="Дата создания" sortable>
         <template #body="{data}">
-          {{formatDate(data.createdAt)}}
+          {{formatDate(data.createAt)}}
         </template>
       </Column>
-      <Column field="createdUser" header="Пользователь" sortable></Column>
+      <Column field="createdUser" header="Пользователь" sortable>
+        <template #body>
+          Илья Астахов
+        </template>
+      </Column>
       <Column field="comment" header="Комметарий" sortable></Column>
       <Column headerStyle="width:4rem">
         <template #body="{data}">
           <div class="flex">
-            <Button icon="pi pi-pencil" class="p-button-rounded" @click="open({note: data.id})"/>
+            <Button icon="pi pi-pencil" class="p-button-rounded"
+                    @click="open({note: data.id}, load)"/>
             <Button
               icon="pi pi-trash"
               class="p-button-rounded p-button-warning ml-3"
@@ -29,7 +34,8 @@
       </Column>
     </DataTable>
     <div>
-      <Button icon="pi pi-plus" class="m-3" label="Добавить"  @click="open({factory: factoryId})" />
+      <Button icon="pi pi-plus" class="m-3" label="Добавить"
+              @click="open({factory: factoryId}, load)"/>
     </div>
   </div>
 </template>
@@ -38,9 +44,9 @@
 /* eslint-disable no-sequences */
 import { onMounted, ref } from 'vue';
 import { useConfirm } from 'primevue/useconfirm';
-import { list } from '@/mock/getNoteMock';
 import formatDate from '@/utils/formatDate';
 import useNotePopup from '@/services/useNotePopup';
+import useApi from '@/services/useApi';
 
 export default {
   props: {
@@ -48,15 +54,28 @@ export default {
       required: true,
     },
   },
-  setup() {
+  setup(props) {
     const notes = ref([]);
     const isLoading = ref(false);
     const { open } = useNotePopup();
     const confirm = useConfirm();
+    const { get } = useApi();
 
     const load = async () => {
       isLoading.value = true;
-      notes.value = await list(5);
+      try {
+        let res = (await get(`note-factory/${props.factoryId}`)).data;
+
+        res = res.map((item) => {
+          const newItem = item;
+          newItem.createAt = new Date(item.createAt * 1000);
+          return newItem;
+        });
+
+        notes.value = res;
+      } catch (e) {
+        notes.value = [];
+      }
       isLoading.value = false;
     };
 
@@ -66,7 +85,7 @@ export default {
         header: 'Удаление',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
-          // callback to execute when user confirms the action
+          load();
         },
         reject: () => {
           // callback to execute when user rejects the action
@@ -82,6 +101,7 @@ export default {
       open,
       remove,
       isLoading,
+      load,
     };
   },
 };
