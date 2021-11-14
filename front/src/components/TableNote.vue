@@ -9,12 +9,16 @@
         Загрузка заметок. Пожалуйста подождите.
       </template>
       <Column field="id" header="Id" sortable></Column>
-      <Column field="createdAt" header="Дата создания" sortable>
+      <Column field="createAt" header="Дата создания" sortable>
         <template #body="{data}">
-          {{formatDate(data.createdAt)}}
+          {{formatDate(data.createAt)}}
         </template>
       </Column>
-      <Column field="createdUser" header="Пользователь" sortable></Column>
+      <Column field="createdUser" header="Пользователь" sortable>
+        <template #body>
+          Илья Астахов
+        </template>
+      </Column>
       <Column field="comment" header="Комметарий" sortable></Column>
       <Column headerStyle="width:4rem">
         <template #body="{data}">
@@ -64,7 +68,7 @@ export default {
 
         res = res.map((item) => {
           const newItem = item;
-          newItem.createAt *= 1000;
+          newItem.createAt = new Date(item.createAt * 1000);
           return newItem;
         });
 
@@ -81,7 +85,7 @@ export default {
         header: 'Удаление',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
-          // callback to execute when user confirms the action
+          load();
         },
         reject: () => {
           // callback to execute when user rejects the action
