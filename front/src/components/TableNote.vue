@@ -44,6 +44,7 @@
 /* eslint-disable no-sequences */
 import { onMounted, ref } from 'vue';
 import { useConfirm } from 'primevue/useconfirm';
+import { useToast } from 'primevue/usetoast';
 import formatDate from '@/utils/formatDate';
 import useNotePopup from '@/services/useNotePopup';
 import useApi from '@/services/useApi';
@@ -60,6 +61,7 @@ export default {
     const { open } = useNotePopup();
     const confirm = useConfirm();
     const { get } = useApi();
+    const { add } = useToast();
 
     const load = async () => {
       isLoading.value = true;
@@ -79,13 +81,19 @@ export default {
       isLoading.value = false;
     };
 
-    const remove = () => {
+    const remove = (id) => {
       confirm.require({
         message: 'Вы уверены, что хотите удалить заметку?',
         header: 'Удаление',
         icon: 'pi pi-exclamation-triangle',
         accept: () => {
-          load();
+          get(`note-remove/${id}`).then(() => load()).then(() => add({
+            severity: 'success',
+            summary: 'Успешно',
+            detail: 'Заметка уделена',
+            group: 'br',
+            life: 3000,
+          }));
         },
         reject: () => {
           // callback to execute when user rejects the action
