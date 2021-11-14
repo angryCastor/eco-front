@@ -1,24 +1,27 @@
 # eco_imperium
 
-## Project setup
+Версия nodeJS - v14.17.3
+
+## Установка пакетов
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Сборка и запуск дев сервера
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Сборка и минификация для прода
 ```
 yarn build
 ```
 
-### Lints and fixes files
-```
-yarn lint
-```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Запуск из docker hub
+```
+//загрузка image из docker hub
+docker pull angrycastor/eco_imperium:latest
+//запуск контейнера на 80 порту
+docker run -d -p 80:80 angrycastor/eco_imperium:latest
+```
