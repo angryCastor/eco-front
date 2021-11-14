@@ -22,6 +22,11 @@
         <MapFilter/>
       </div>
     </GMapMap>
+    <div
+      class="p-card absolute p-3 text-center text-lg"
+      style="bottom: 30px; left: 50%; transform: translateX(-50%)">
+      Для выделения области,<br>необходимо зажать правую кнопку мыши
+    </div>
   </div>
 </template>
 

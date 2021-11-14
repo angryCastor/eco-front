@@ -28,6 +28,7 @@ import Tooltip from 'primevue/tooltip';
 import Chart from 'primevue/chart';
 import ConfirmationService from 'primevue/confirmationservice';
 import ConfirmDialog from 'primevue/confirmdialog';
+import Textarea from 'primevue/textarea';
 
 import VueGoogleMaps from '@fawmi/vue-google-maps';
 import ru from '@/utils/ru';
@@ -69,6 +70,7 @@ createApp(App)
   .component('Chart', Chart)
   .component('Dialog', Dialog)
   .component('ConfirmDialog', ConfirmDialog)
+  .component('Textarea', Textarea)
   .directive('ripple', Ripple)
   .directive('tooltip', Tooltip)
   .mount('#app');

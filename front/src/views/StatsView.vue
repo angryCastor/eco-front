@@ -4,13 +4,13 @@
       <h2 class="text-center mb-3 relative text-xl" style="left: 2rem">
         Статистика учёта предприятий
       </h2>
-      <div style="width: 30rem; position: relative; left: 2rem">
+      <div style="width: 25rem; position: relative; left: 2rem">
         <Chart type="pie" :data="oneDataset" :options="lightOptions" />
       </div>
     </div>
     <div>
       <h2 class="text-center mb-3 text-xl">Поводы для постановки на учет НВОС</h2>
-      <div style="width: 33.5rem">
+      <div style="width: 28.5rem">
         <Chart type="pie" :data="twoDataset" :options="lightOptions" />
       </div>
     </div>
@@ -35,16 +35,16 @@ export default {
       {
         label: 'Состоящие на учете в НВОС',
         value: 495,
-        backgroundColor: success.value.toString(),
-        hoverBackgroundColor: isDark.value ? success.value.darken().toString()
-          : success.value.lighten().toString(),
+        backgroundColor: success.value.clone().toString(),
+        hoverBackgroundColor: isDark.value ? success.value.clone().clone().darken().toString()
+          : success.value.clone().lighten().toString(),
       },
       {
         label: 'Подлежащие постановке на учет НВОС',
         value: 1641,
-        backgroundColor: warning.value.toString(),
-        hoverBackgroundColor: isDark.value ? warning.value.darken().toString()
-          : warning.value.lighten().toString(),
+        backgroundColor: warning.value.clone().toString(),
+        hoverBackgroundColor: isDark.value ? warning.value.clone().darken().toString()
+          : warning.value.clone().lighten().toString(),
       },
     ]);
 
@@ -52,37 +52,30 @@ export default {
       {
         label: 'Имеющие ОКВЭД подлежащие учету в НВОС',
         value: 1268,
-        backgroundColor: success.value.toString(),
-        hoverBackgroundColor: isDark.value ? success.value.darken().toString()
-          : success.value.lighten().toString(),
-      },
-      {
-        label: 'Состоящие на учете в НВОС',
-        value: 495,
-        backgroundColor: warning.value.toString(),
-        hoverBackgroundColor: isDark.value ? warning.value.darken().toString()
-          : warning.value.lighten().toString(),
+        backgroundColor: success.value.clone().toString(),
+        hoverBackgroundColor: isDark.value ? warning.value.clone().darken().toString()
+          : warning.value.clone().lighten().toString(),
       },
       {
         label: 'Имеющие лицензий на переработку металлов',
         value: 350,
-        backgroundColor: danger.value.toString(),
-        hoverBackgroundColor: isDark.value ? danger.value.darken().toString()
-          : danger.value.lighten().toString(),
+        backgroundColor: danger.value.clone().toString(),
+        hoverBackgroundColor: isDark.value ? danger.value.clone().darken().toString()
+          : danger.value.clone().lighten().toString(),
       },
       {
         label: 'Имеющие разрешения на выбросы загрязняющих веществ',
         value: 258,
-        backgroundColor: help.value.toString(),
-        hoverBackgroundColor: isDark.value ? help.value.darken().toString()
-          : help.value.lighten().toString(),
+        backgroundColor: help.value.clone().toString(),
+        hoverBackgroundColor: isDark.value ? help.value.clone().darken().toString()
+          : help.value.clone().lighten().toString(),
       },
       {
         label: 'Имеющие лицензий на обращение с отходами',
         value: 143,
-        backgroundColor: info.value.toString(),
-        hoverBackgroundColor: isDark.value ? info.value.darken().toString()
-          : info.value.lighten().toString(),
+        backgroundColor: info.value.clone().toString(),
+        hoverBackgroundColor: isDark.value ? info.value.clone().darken().toString()
+          : info.value.clone().lighten().toString(),
       },
     ]);
 
