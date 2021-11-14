@@ -225,6 +225,13 @@ class vEcoOrgTax
     private $chNvos;
 
     /**
+     * @var string|null
+     *
+     * @ORM\Column(name="name_okved", type="string", nullable=true)
+     */
+    private $nameOkved;
+
+    /**
      * @return string
      */
     public function getIdEcoOrg(): string
@@ -702,6 +709,22 @@ class vEcoOrgTax
     public function setChNvos(?int $chNvos): void
     {
         $this->chNvos = $chNvos;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getNameOkved(): ?string
+    {
+        return $this->nameOkved;
+    }
+
+    /**
+     * @param string|null $nameOkved
+     */
+    public function setNameOkved(?string $nameOkved): void
+    {
+        $this->nameOkved = $nameOkved;
     }
 
 }

@@ -343,7 +343,7 @@ class ApiController extends AbstractController
                     "inn" => $comp['inn'],
                     "okpo" => $comp['okpo'],
                     "okved" => $comp['okved'],
-                    "okved_display" => $comp['okved'],
+                    "okved_display" => $comp['nameOkved'],
                     "phones" => $comp['tel'],
                     "emails" => $comp['email'],
                     "is_registered" => boolval($comp['chNvos']),
@@ -487,7 +487,7 @@ class ApiController extends AbstractController
                         "inn" => $comp['inn'],
                         "okpo" => $comp['okpo'],
                         "okved" => $comp['okved'],
-                        "okved_display" => $comp['okved'],
+                        "okved_display" => $comp['nameOkved'],
                         "phones" => $comp['tel'],
                         "emails" => $comp['email'],
                         "is_registered" => boolval($comp['chNvos']),
@@ -680,6 +680,141 @@ class ApiController extends AbstractController
             'error' => 'Заметки не найдены'
         ], 401);
 
+    }
+
+    /**
+     * @Route("/api/note-remove/{id}", name="api_get_note_remove_id")
+     * @param Request $request
+     */
+    public function remove_note_id(Request $request, $id = null)
+    {
+        $header = $request->headers->get('Authorization');
+        $data = json_decode($request->getContent(), true);
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        if ($id) {
+
+            $note = $em->getRepository(EcoRevision::class)->findOneBy(
+                ['idRevision' => $id]);
+
+            if ($note) {
+
+                $em->remove($note);
+
+                $em->flush();
+
+                return $this->json([
+                    'status' => 'true',
+                ]);
+
+            }
+        }
+
+        return new JsonResponse([
+            'error' => 'Заметка не найдена'
+        ], 401);
+
+    }
+
+    /**
+     * @Route("/api/note-create", methods={"POST"}, name="api_note_create")
+     * @param Request $request
+     */
+    public function note_create(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+        $emc = $this->getDoctrine()->getManager();
+
+        $factory = $em->getRepository(EcoOrgTax::class)->findOneBy(
+            ['idEcoOrg' => $data['factory_id']]);
+
+        if ($factory) {
+
+            $note = new EcoRevision();
+
+            $note->SetIdOrgTax($factory->getIdEcoOrg());
+
+            $note->SetIdUser(1);
+
+            $note->SetCommet($data['comment']);
+
+            $date = (new \DateTime())->setTimestamp($data["date"]);
+
+            $note->SetdateProv($date);
+
+            $emc->persist($note);
+
+            $emc->flush();
+
+            $data[] = array(
+                'id' => $note->getidRevision(),
+                'factory_id' => $factory->getIdEcoOrg(),
+                'created_at' => $data["date"],
+                'comment' => $data['comment'],
+            );
+
+            $response = new JsonResponse($data[0]);
+
+            $response -> setEncodingOptions(JSON_UNESCAPED_UNICODE);
+
+            return $response;
+
+            }
+
+        return new JsonResponse([
+            'error' => 'Организация не найдена'
+        ], 405);
+    }
+
+    /**
+     * @Route("/api/note-update/{id}", methods={"POST"}, name="api_note_update")
+     * @param Request $request
+     */
+    public function note_update(Request $request, $id = null)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        /** @var EntityManager $em */
+        $em = $this->getDoctrine()->getManager();
+
+        $note = $em->getRepository(EcoRevision::class)->findOneBy(
+            ['idRevision' => $id]);
+
+        if ($note) {
+
+            $note->SetCommet($data['comment']);
+
+            $date = (new \DateTime())->setTimestamp($data["date"]);
+
+            $note->SetdateProv($date);
+
+            $em->persist($note);
+
+            $em->flush();
+
+            $data[] = array(
+                'id' => $id,
+                'factory_id' => $note->getidOrgTax(),
+                'created_at' => $data["date"],
+                'comment' => $data['comment'],
+            );
+
+            $response = new JsonResponse($data[0]);
+
+            $response -> setEncodingOptions(JSON_UNESCAPED_UNICODE);
+
+            return $response;
+
+        }
+
+        return new JsonResponse([
+            'error' => 'Заметка не найдена'
+        ], 405);
     }
 
 }
