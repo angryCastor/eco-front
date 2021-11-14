@@ -5,6 +5,7 @@ import {
 const isOpen = ref(false);
 const factoryId = ref(null);
 const noteId = ref(null);
+const successCallback = ref(null);
 
 const isCreate = computed(() => factoryId.value != null);
 
@@ -13,10 +14,11 @@ const clearData = () => {
   noteId.value = null;
 };
 
-const open = ({ factory, note }) => {
+const open = ({ factory, note }, callback = null) => {
   factoryId.value = factory ?? null;
   noteId.value = note ?? null;
   isOpen.value = true;
+  successCallback.value = callback;
 };
 
 const close = () => {
@@ -37,4 +39,5 @@ export default () => ({
   noteId: readonly(noteId),
   open,
   close,
+  successCallback,
 });

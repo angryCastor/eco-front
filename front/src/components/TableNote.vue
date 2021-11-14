@@ -19,7 +19,8 @@
       <Column headerStyle="width:4rem">
         <template #body="{data}">
           <div class="flex">
-            <Button icon="pi pi-pencil" class="p-button-rounded" @click="open({note: data.id})"/>
+            <Button icon="pi pi-pencil" class="p-button-rounded"
+                    @click="open({note: data.id}, load)"/>
             <Button
               icon="pi pi-trash"
               class="p-button-rounded p-button-warning ml-3"
@@ -29,7 +30,8 @@
       </Column>
     </DataTable>
     <div>
-      <Button icon="pi pi-plus" class="m-3" label="Добавить"  @click="open({factory: factoryId})" />
+      <Button icon="pi pi-plus" class="m-3" label="Добавить"
+              @click="open({factory: factoryId}, load)"/>
     </div>
   </div>
 </template>
@@ -82,6 +84,7 @@ export default {
       open,
       remove,
       isLoading,
+      load,
     };
   },
 };
