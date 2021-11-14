@@ -52,7 +52,7 @@ export default {
       {
         label: 'Имеющие ОКВЭД подлежащие учету в НВОС',
         value: 1268,
-        backgroundColor: success.value.clone().toString(),
+        backgroundColor: warning.value.clone().toString(),
         hoverBackgroundColor: isDark.value ? warning.value.clone().darken().toString()
           : warning.value.clone().lighten().toString(),
       },
