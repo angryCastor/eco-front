@@ -1,6 +1,6 @@
 # Эко империум
 
-#BACKEND
+# BACKEND
 
 ## Реализованная функциональность
 
@@ -39,7 +39,7 @@ composer install
 
 ![Схема базы данных](./back/db/schema_bd.png)
 
-#FRONTEND
+# FRONTEND
 
 Версия nodeJS - v14.17.3
 
